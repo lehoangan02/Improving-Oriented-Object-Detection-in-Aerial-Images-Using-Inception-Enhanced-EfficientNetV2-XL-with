@@ -1178,8 +1178,6 @@ class CTRBOX_EfficientNetV5(nn.Module):
                 self.fill_fc_weights(fc)
 
             self.__setattr__(head, fc)
-        torch.nn.init.kaiming_normal_(self.adapter_layer[0].weight, mode='fan_out', nonlinearity='relu')
-        # print_layers.print_layers(self)
 
     def fill_fc_weights(self, m):
         if isinstance(m, nn.Conv2d):
