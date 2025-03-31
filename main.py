@@ -39,7 +39,7 @@ if __name__ == '__main__':
              'cls_theta': 1
              }
     down_ratio = 4
-    model = ctrbox_net.CTRBOX_Transpose_V1(heads=heads,
+    model = ctrbox_net.CTRBOX_EfficientNetV5(heads=heads,
                               pretrained=True,
                               down_ratio=down_ratio,
                               final_kernel=1,
