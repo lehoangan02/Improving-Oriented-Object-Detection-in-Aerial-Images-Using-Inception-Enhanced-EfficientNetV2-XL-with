@@ -265,7 +265,7 @@ class LossAll_aux(torch.nn.Module):
         return loss
 class FocalLossSeverePunish(nn.Module):
     def __init__(self):
-        super(FocalLoss, self).__init__()
+        super().__init__()
 
     def forward(self, pred, gt):
         pos_inds = gt.eq(1).float()
