@@ -113,7 +113,7 @@ class TrainModule(object):
                 self.model = nn.DataParallel(self.model)
         self.model.to(self.device)
 
-        criterion = loss.LossAll()
+        criterion = loss.LossHeatmapOnly()
         print('Setting up data...')
 
         dataset_module = self.dataset[args.dataset]

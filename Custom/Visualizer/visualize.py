@@ -12,7 +12,7 @@ root = None
 # Function to display the image with OpenCV
 def display_image_with_bounding_boxes():
     # print(f"Displaying image: {image_path}")
-    boxes = read_boxes('./Task1_bridge.txt')
+    boxes = read_boxes('./Task1_harbor.txt')
     image_boxes = boxes[currentImage]  # Get bounding boxes for the image
     # Display the image with bounding boxes
     for box in [image_boxes]:
@@ -24,6 +24,10 @@ def display_image_with_bounding_boxes():
         points = [(int(points[i]), int(points[i+1])) for i in range(0, len(points), 2)]
         for i in range(len(points)):
             cv2.line(image, points[i], points[(i+1) % len(points)], (0, 255, 0), 2)
+        confidence = box['threshold']
+        text_position = (points[0][0], points[0][1] - 10)  # Slightly above the first point
+        cv2.putText(image, f"Conf: {confidence:.2f}", text_position, cv2.FONT_HERSHEY_SIMPLEX, 
+                0.5, (0, 255, 0), 1, cv2.LINE_AA)
     
     # Show the image
     cv2.imshow(WindowName, image)
@@ -112,7 +116,7 @@ def open_text_viewer(file_path):
 def getImageName():
     global currentImage
     # boxes = read_boxes('./result_dota608/Task1_bridge.txt')
-    boxes = read_boxes('./result_dota/Task1_bridge.txt')
+    boxes = read_boxes('./Task1_ship.txt')
 
     image_boxes = boxes[currentImage]
     print(image_boxes['image'])
