@@ -22,7 +22,7 @@ conf_thresh=0.1
 batch_size=16
 dataset="dota"
 phase="eval"
-model_dir="swin-t"
+model_dir="swin-s"
 # Directory structure:
 # -|weights_dota
 # ---| your_model_weights
@@ -31,11 +31,11 @@ model_dir="swin-t"
 # -----| ...
 eval_script="dota_evaluation_task1.py"
 eval_dir="datasets/DOTA_devkit"
-result_dir="Result/swin-t"
+result_dir="Result/swin-s"
 # A folder named "Result" will be created in the current directory to store the evaluation results
 
 # Array of model epochs to evaluate
-epochs=(10 9 8 7 6 5)
+epochs=(10 9 8)
 
 # Create the result directory if it doesn't exist
 mkdir -p "Result"
