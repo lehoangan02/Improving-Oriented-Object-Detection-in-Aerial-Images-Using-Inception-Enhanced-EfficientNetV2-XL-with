@@ -101,7 +101,6 @@ class TrainModule(object):
                                                                         self.optimizer, 
                                                                         args.resume_train, 
                                                                         strict=True)
-            self.scheduler = torch.optim.lr_scheduler.ExponentialLR(self.optimizer, gamma=0.96, last_epoch=start_epoch)
             start_epoch += 1
         # end 
 
