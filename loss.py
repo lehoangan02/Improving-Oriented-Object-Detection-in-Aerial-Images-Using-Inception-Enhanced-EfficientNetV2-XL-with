@@ -257,7 +257,7 @@ class LossAll_aux(torch.nn.Module):
             print('off aux loss is {}'.format(off_aux_loss))
             
         aux_loss = hm_aux_loss + wh_aux_loss + off_aux_loss + cls_theta_aux_loss
-        print(f"main_loss: {main_loss}")
-        print(f"aux_loss: {aux_loss}")
+        # print(f"main_loss: {main_loss}")
+        # print(f"aux_loss: {aux_loss}")
         loss = main_loss + aux_loss * 0.4
         return loss

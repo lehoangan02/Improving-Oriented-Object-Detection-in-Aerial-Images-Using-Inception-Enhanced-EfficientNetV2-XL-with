@@ -376,9 +376,9 @@ class CTRBOX_mmsegmentationV6(nn.Module):
 
     def forward(self, x):
         images = x
-        print('input x:', x.shape)
+        # print('input x:', x.shape)
         x = self.seg_model.forward(x, mode='tensor')
-        print('x segmented:', x.shape)
+        # print('x segmented:', x.shape)
         aux_dec_dict = {}
         for head in self.aux_head:
             aux_dec_dict[head] = self.__getattr__(head)(x)
@@ -386,14 +386,14 @@ class CTRBOX_mmsegmentationV6(nn.Module):
                 aux_dec_dict[head] = torch.sigmoid(aux_dec_dict[head])
         x = self.downchannel(x)
         x = self.upsample(x)
-        print('x upscaled:', x.shape)
-        print('images:', images.shape)
+        # print('x upscaled:', x.shape)
+        # print('images:', images.shape)
         x = torch.cat((x, images), dim=1)
         x = self.images_mix(x)
         x = self.base_network(x)
-        for idx, layer in enumerate(x):
-            print('layer {} shape: {}'.format(idx, layer
-                                                .shape))
+        # for idx, layer in enumerate(x):
+        #     print('layer {} shape: {}'.format(idx, layer
+        #                                         .shape))
         c4_combine = self.dec_c4(x[-1], x[-2])
         c3_combine = self.dec_c3(c4_combine, x[-3])
         c2_combine = self.dec_c2(c3_combine, x[-4])
