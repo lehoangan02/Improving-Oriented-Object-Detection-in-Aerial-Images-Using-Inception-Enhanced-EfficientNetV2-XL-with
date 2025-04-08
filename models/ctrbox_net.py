@@ -1296,9 +1296,9 @@ class CTRBOX_101_Addition(nn.Module):
 
     def forward(self, x):
         x = self.base_network(x)
-        for idx, layer in enumerate(x):
-            print('layer {} shape: {}'.format(idx, layer
-                                              .shape))
+        # for idx, layer in enumerate(x):
+        #     print('layer {} shape: {}'.format(idx, layer
+        #                                       .shape))
         # import matplotlib.pyplot as plt
         # import os
         # for idx in range(x[1].shape[1]):
