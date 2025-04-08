@@ -52,3 +52,20 @@ class CombinationModule_Transpose(nn.Module):
     def forward(self, x_low, x_up):
         x_low = self.refine(self.up(x_low))
         return self.cat_conv(torch.cat((x_up, x_low), 1))
+class CombinationModule_Addition(nn.Module):
+    def __init__(self, c_low, c_up):
+        super().__init__()
+        self.c_low = c_low
+        self.c_up = c_up
+        self.refine =  nn.Sequential(nn.Conv2d(c_low, c_up, kernel_size=3, padding=1, stride=1),
+                                     nn.BatchNorm2d(c_up),
+                                     nn.ReLU(inplace=True))
+        self.mix = nn.Sequential(nn.Conv2d(c_up, c_up, kernel_size=3, padding=1, stride=1),
+                                 nn.BatchNorm2d(c_up),
+                                 nn.ReLU(inplace=True))
+    def forward(self, x_low, x_up):
+        x_low = F.interpolate(x_low, x_up.shape[2:], mode='bilinear', align_corners=False)
+        x_low = self.refine(x_low)
+        addition = x_low + x_up
+        x_up = self.mix(addition)
+        return x_up
