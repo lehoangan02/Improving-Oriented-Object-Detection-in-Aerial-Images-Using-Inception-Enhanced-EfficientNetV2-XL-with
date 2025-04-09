@@ -12,6 +12,8 @@ from . import print_layers
 from . import efficientnet_v2
 from . import vit_extractor
 from . import resnet_fpn
+import torch.nn.functional as F
+
 
 class CTRBOX_Github(nn.Module):
     def __init__(self, heads, pretrained, down_ratio, final_kernel, head_conv):
@@ -54,9 +56,9 @@ class CTRBOX_Github(nn.Module):
 
     def forward(self, x):
         x = self.base_network(x)
-        # for idx, layer in enumerate(x):
-        #     print('layer {} shape: {}'.format(idx, layer
-        #                                       .shape))
+        for idx, layer in enumerate(x):
+            print('layer {} shape: {}'.format(idx, layer
+                                              .shape))
         # import matplotlib.pyplot as plt
         # import os
         # for idx in range(x[1].shape[1]):
@@ -1320,3 +1322,96 @@ class CTRBOX_101_Addition(nn.Module):
         # for dec in dec_dict:
         #     print(dec, dec_dict[dec].shape)
         return dec_dict
+class CTRBOX_Github_aux(nn.Module):
+    def __init__(self, heads, pretrained, down_ratio, final_kernel, head_conv):
+        super().__init__()
+        channels = [3, 64, 256, 512, 1024, 2048]
+        assert down_ratio in [2, 4, 8, 16]
+        self.l1 = int(np.log2(down_ratio))
+        self.base_network = resnet.resnet101(pretrained=pretrained)
+
+        self.dec_c2 = CombinationModule(512, 256, batch_norm=True)
+        self.dec_c3 = CombinationModule(1024, 512, batch_norm=True)
+        self.dec_c4 = CombinationModule(2048, 1024, batch_norm=True)
+        self.heads = heads
+        self.aux_heads = heads
+        self.adapt_aux = nn.Sequential(nn.Conv2d(2048, 256, kernel_size=1, stride=1, padding=0, bias=True),
+                                        nn.BatchNorm2d(256),
+                                        nn.ReLU(inplace=True))
+
+        for head in self.heads:
+            classes = self.heads[head]
+            if head == 'wh':
+                fc = nn.Sequential(nn.Conv2d(channels[self.l1], head_conv, kernel_size=3, padding=1, bias=True),
+                                   nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   nn.ReLU(inplace=True),
+                                   nn.Conv2d(head_conv, classes, kernel_size=3, padding=1, bias=True))
+            else:
+                fc = nn.Sequential(nn.Conv2d(channels[self.l1], head_conv, kernel_size=3, padding=1, bias=True),
+                                   nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   nn.ReLU(inplace=True),
+                                   nn.Conv2d(head_conv, classes, kernel_size=final_kernel, stride=1, padding=final_kernel // 2, bias=True))
+            if 'hm' in head:
+                fc[-1].bias.data.fill_(-2.19)
+            else:
+                self.fill_fc_weights(fc)
+
+            self.__setattr__(head, fc)
+        # x = self.base_network()
+        # print_layers.print_layers(self)
+        for head in self.aux_heads:
+            classes = self.heads[head]
+            if head == 'wh':
+                fc = nn.Sequential(nn.Conv2d(channels[self.l1], head_conv, kernel_size=3, padding=1, bias=True),
+                                   nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   nn.ReLU(inplace=True),
+                                   nn.Conv2d(head_conv, classes, kernel_size=3, padding=1, bias=True))
+            else:
+                fc = nn.Sequential(nn.Conv2d(channels[self.l1], head_conv, kernel_size=3, padding=1, bias=True),
+                                   nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   nn.ReLU(inplace=True),
+                                   nn.Conv2d(head_conv, classes, kernel_size=final_kernel, stride=1, padding=final_kernel // 2, bias=True))
+            if 'hm' in head:
+                fc[-1].bias.data.fill_(-2.19)
+            else:
+                self.fill_fc_weights(fc)
+
+            self.__setattr__('aux_' + head, fc)
+
+    def fill_fc_weights(self, m):
+        if isinstance(m, nn.Conv2d):
+            if m.bias is not None:
+                nn.init.constant_(m.bias, 0)
+
+    def forward(self, x):
+        x = self.base_network(x)
+        for idx, layer in enumerate(x):
+            print('layer {} shape: {}'.format(idx, layer
+                                              .shape))
+        # import matplotlib.pyplot as plt
+        # import os
+        # for idx in range(x[1].shape[1]):
+        #     temp = x[1][0,idx,:,:]
+        #     temp = temp.data.cpu().numpy()
+        #     plt.imsave(os.path.join('dilation', '{}.png'.format(idx)), temp)
+        upscaled = F.interpolate(x[-1], size=(152, 152), mode='bilinear', align_corners=False)
+        upscaled = self.adapt_aux(upscaled)
+
+        c4_combine = self.dec_c4(x[-1], x[-2])
+        c3_combine = self.dec_c3(c4_combine, x[-3])
+        c2_combine = self.dec_c2(c3_combine, x[-4])
+        # print('c2_combine shape: ', c2_combine.shape)
+
+        dec_dict = {}
+        for head in self.heads:
+            dec_dict[head] = self.__getattr__(head)(c2_combine)
+            if 'hm' in head or 'cls' in head:
+                dec_dict[head] = torch.sigmoid(dec_dict[head])
+        # for dec in dec_dict:
+        #     print(dec, dec_dict[dec].shape)
+        aux_dict = {}
+        for head in self.aux_heads:
+            aux_dict[head] = self.__getattr__('aux_' + head)(upscaled)
+            if 'hm' in head or 'cls' in head:
+                aux_dict[head] = torch.sigmoid(aux_dict[head])
+        return dec_dict, aux_dict
