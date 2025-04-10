@@ -140,6 +140,7 @@ class TrainModule(object):
             print('-'*10)
             print(f"Dataset length: {len(dsets['train'])}")
             print('Epoch: {}/{} '.format(epoch, args.num_epoch))
+            print('Learning rate: {}'.format(self.optimizer.param_groups[0]['lr']))
             epoch_loss = self.run_epoch(phase='train',
                                         data_loader=dsets_loader['train'],
                                         criterion=criterion)
