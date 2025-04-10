@@ -63,7 +63,7 @@ def write_results(args,
         image_h = data_dict['image_h']
 
         with torch.no_grad():
-            pr_decs = model(image)
+            pr_decs, _ = model(image)
 
 
         decoded_pts = []
