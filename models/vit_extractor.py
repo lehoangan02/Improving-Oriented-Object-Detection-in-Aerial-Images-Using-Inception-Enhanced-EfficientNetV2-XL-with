@@ -1,6 +1,7 @@
 import torch
 from torchvision.models import vit_b_16, ViT_B_16_Weights
 import math
+from torchvision.ops import Permute
 
 class InputProcessor(torch.nn.Module):
     def __init__(self, vit):
@@ -94,8 +95,11 @@ class ViTExtractor(torch.nn.Module):
         conv_layer = torch.nn.ConvTranspose2d if transpose else torch.nn.Conv2d
         return torch.nn.Sequential(
             conv_layer(in_channels, out_channels, kernel_size, stride, padding),
-            torch.nn.BatchNorm2d(out_channels),
-            torch.nn.ReLU()
+            # Permute([0, 2, 3, 1]),  # Change the order of dimensions
+            # torch.nn.LayerNorm(out_channels),
+            # Permute([0, 3, 1, 2]),  # Change back to original order
+            torch.nn.GroupNorm(num_groups=32, num_channels=out_channels),
+            torch.nn.ReLU(inplace=True),
         )
 
     def initialize_layers(self, layers):
