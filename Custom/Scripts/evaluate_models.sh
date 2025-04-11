@@ -35,7 +35,7 @@ result_dir="Result/aux-0.2"
 # A folder named "Result" will be created in the current directory to store the evaluation results
 
 # Array of model epochs to evaluate
-epochs=(10 9 8 7 6 5 4 3 2 1)
+epochs=(6 5 4 3 2 1)
 
 # Create the result directory if it doesn't exist
 mkdir -p "Result"
@@ -49,5 +49,5 @@ for epoch in "${epochs[@]}"; do
     
     # Change directory to evaluation script location and run evaluation
     echo "Running DOTA evaluation for model at epoch ${epoch}..."
-    (cd "$eval_dir" && python "$eval_script") | tee "$result_dir/evaluation_result_for_epoch_${epoch}.txt"
+    python "$eval_dir/$eval_script" | tee "$result_dir/evaluation_result_for_epoch_${epoch}.txt"
 done
