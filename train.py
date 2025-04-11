@@ -113,7 +113,7 @@ class TrainModule(object):
                 self.model = nn.DataParallel(self.model)
         self.model.to(self.device)
 
-        criterion = loss.LossAll()
+        criterion = loss.LossAll_aux(0.3)
         print('Setting up data...')
 
         dataset_module = self.dataset[args.dataset]
