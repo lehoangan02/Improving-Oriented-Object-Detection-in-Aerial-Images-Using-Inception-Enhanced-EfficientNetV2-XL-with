@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 from torchvision.models import swin_t, Swin_T_Weights, swin_s, Swin_S_Weights,  swin_b, Swin_B_Weights
+from torchvision.ops.misc import Permute
 
 class SwinEncoder(nn.Module):
     def __init__(self, pretrained = True, freeze_backbone = True):
@@ -12,56 +13,14 @@ class SwinEncoder(nn.Module):
         else:
             weights = None
         swin = swin_t(weights = weights, progress = True)
+        # print(swin)
 
         self.encoder = swin.features
 
-        self.extract1 = nn.Sequential(
-            nn.LayerNorm(96, eps=1e-5), # Swin_T
-            # nn.LayerNorm(128, eps=1e-5), # Swin_B
-            swin.permute,
-            nn.Conv2d(96, 256, kernel_size=3, stride=1, padding=1), # Swin_T
-            # nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1), # Swin_B
-            # nn.BatchNorm2d(256),
-            nn.ReLU(inplace=True),
-            nn.LayerNorm((256, 152, 152), eps=1e-5),
-            # nn.Conv2d(256, 256, kernel_size=1, stride=1, padding=0),
-            # nn.BatchNorm2d(256)
-        )
-        self.extract2 = nn.Sequential(
-            nn.LayerNorm(192, eps=1e-5), # Swin_T
-            # nn.LayerNorm(256, eps=1e-5), # Swin_B
-            swin.permute,
-            nn.Conv2d(192, 512, kernel_size=3, stride=1, padding=1), # Swin_T
-            # nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1), # Swin_B
-            # nn.BatchNorm2d(512),
-            nn.ReLU(inplace=True),
-            nn.LayerNorm((512, 76, 76), eps=1e-5),
-            # nn.Conv2d(512, 512, kernel_size=1, stride=1, padding=0),
-            # nn.BatchNorm2d(512)
-        )
-        self.extract3 = nn.Sequential(
-            nn.LayerNorm(384, eps=1e-5), # Swin_T
-            # nn.LayerNorm(512, eps=1e-5), # Swin_B
-            swin.permute,
-            nn.Conv2d(384, 1024, kernel_size=3, stride=1, padding=1), # Swin_T
-            # nn.Conv2d(512, 1024, kernel_size=3, stride=1, padding=1), # Swin_B
-            # nn.BatchNorm2d(1024),
-            nn.ReLU(inplace=True),
-            nn.LayerNorm((1024, 38, 38), eps=1e-5),
-            # nn.Conv2d(1024, 1024, kernel_size=1, stride=1, padding=0),
-            # nn.BatchNorm2d(1024)
-        )
-        self.extract4 = nn.Sequential(
-            swin.norm,
-            swin.permute,
-            nn.Conv2d(768, 2048, kernel_size=3, stride=1, padding=1), # Swin_T
-            # nn.Conv2d(1024, 2048, kernel_size=3, stride=1, padding=1), # Swin_B
-            # nn.BatchNorm2d(2048),
-            nn.ReLU(inplace=True),
-            nn.LayerNorm((2048, 19, 19), eps=1e-5),
-            # nn.Conv2d(2048, 2048, kernel_size=1, stride=1, padding=0),
-            # nn.BatchNorm2d(2048)
-        )
+        self.extract1 = self.create_extractor(96, 256)
+        self.extract2 = self.create_extractor(192, 512)
+        self.extract3 = self.create_extractor(384, 1024)
+        self.extract4 = self.create_extractor(768, 2048)
 
         # Freeze the backbone
         if freeze_backbone:
@@ -75,6 +34,18 @@ class SwinEncoder(nn.Module):
                     nn.init.kaiming_normal_(layer.weight, mode='fan_out', nonlinearity='relu')
                     if layer.bias is not None:
                         nn.init.constant_(layer.bias, 0)
+
+    def create_extractor(self, in_channels, out_channels):
+        return nn.Sequential(
+            nn.LayerNorm(in_channels),
+            Permute([0, 3, 1, 2]),
+            nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=1, padding=1),
+            Permute([0, 2, 3, 1]), 
+            torch.nn.LayerNorm(out_channels),
+            Permute([0, 3, 1, 2]),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(out_channels, out_channels, kernel_size=1, stride=1, padding=0)
+        )
 
     def forward(self, x):
         features = []
