@@ -566,9 +566,9 @@ class CTRBOX_ViT(nn.Module):
 
         self.base_network = vit_extractor.ViTExtractor(pretrained=True, freeze_backbone=False, unfreeze_ratio=1.0)
 
-        self.dec_c2 = CombinationModule(512, 256, group_norm=True)
-        self.dec_c3 = CombinationModule(1024, 512, group_norm=True)
-        self.dec_c4 = CombinationModule(2048, 1024, group_norm=True)
+        self.dec_c2 = CombinationModule(512, 256, layer_norm=True)
+        self.dec_c3 = CombinationModule(1024, 512, layer_norm=True)
+        self.dec_c4 = CombinationModule(2048, 1024, layer_norm=True)
         self.heads = heads
 
         for head in self.heads:
