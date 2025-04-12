@@ -38,13 +38,14 @@ class SwinEncoder(nn.Module):
     def create_extractor(self, in_channels, out_channels):
         return nn.Sequential(
             nn.LayerNorm(in_channels),
-            Permute([0, 3, 1, 2]),
-            nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=1, padding=1),
-            Permute([0, 2, 3, 1]), 
-            torch.nn.LayerNorm(out_channels),
-            Permute([0, 3, 1, 2]),
             nn.ReLU(inplace=True),
-            nn.Conv2d(out_channels, out_channels, kernel_size=1, stride=1, padding=0)
+            Permute([0, 3, 1, 2]),
+            # nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=1, padding=1),
+            # Permute([0, 2, 3, 1]), 
+            # torch.nn.LayerNorm(out_channels),
+            # Permute([0, 3, 1, 2]),
+            # nn.ReLU(inplace=True),
+            # nn.Conv2d(out_channels, out_channels, kernel_size=1, stride=1, padding=0)
         )
 
     def forward(self, x):

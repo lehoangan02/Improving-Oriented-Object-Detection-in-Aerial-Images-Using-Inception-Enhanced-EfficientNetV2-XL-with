@@ -2,6 +2,7 @@ import torch.nn as nn
 import numpy as np
 import torch
 from .model_parts import CombinationModule
+from torchvision.ops.misc import Permute
 from . import resnet
 from . import densenet
 from . import fpn
@@ -632,21 +633,27 @@ class CTRBOX_Swin(nn.Module):
 
         self.base_network = swin.SwinEncoder(pretrained=True, freeze_backbone=False)
 
-        self.dec_c2 = CombinationModule(512, 256, group_norm=True)
-        self.dec_c3 = CombinationModule(1024, 512, group_norm=True)
-        self.dec_c4 = CombinationModule(2048, 1024, group_norm=True)
+        self.dec_c2 = CombinationModule(192, 96, layer_norm=True)
+        self.dec_c3 = CombinationModule(384, 192, layer_norm=True)
+        self.dec_c4 = CombinationModule(768, 384, layer_norm=True)
         self.heads = heads
 
         for head in self.heads:
             classes = self.heads[head]
             if head == 'wh':
-                fc = nn.Sequential(nn.Conv2d(channels[self.l1], head_conv, kernel_size=3, padding=1, bias=True),
+                fc = nn.Sequential(nn.Conv2d(96, head_conv, kernel_size=3, padding=1, bias=True),
                                 #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   Permute([0, 2, 3, 1]), 
+                                   torch.nn.LayerNorm(head_conv),
+                                   Permute([0, 3, 1, 2]),
                                    nn.ReLU(inplace=True),
                                    nn.Conv2d(head_conv, classes, kernel_size=3, padding=1, bias=True))
             else:
-                fc = nn.Sequential(nn.Conv2d(channels[self.l1], head_conv, kernel_size=3, padding=1, bias=True),
+                fc = nn.Sequential(nn.Conv2d(96, head_conv, kernel_size=3, padding=1, bias=True),
                                 #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   Permute([0, 2, 3, 1]), 
+                                   torch.nn.LayerNorm(head_conv),
+                                   Permute([0, 3, 1, 2]),
                                    nn.ReLU(inplace=True),
                                    nn.Conv2d(head_conv, classes, kernel_size=final_kernel, stride=1, padding=final_kernel // 2, bias=True))
             if 'hm' in head:

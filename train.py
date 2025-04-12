@@ -172,7 +172,8 @@ class TrainModule(object):
             self.model.eval()
         running_loss = 0.
         
-        for data_dict in tqdm(data_loader, unit='batch'):
+        # for data_dict in tqdm(data_loader, unit='batch'):
+        for data_dict in data_loader:
             for name in data_dict:
                 data_dict[name] = data_dict[name].to(device=self.device, non_blocking=True)
             if phase == 'train':
