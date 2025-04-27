@@ -701,19 +701,4 @@ class EfficientNetV2(nn.Module):
             x = block(x)
             if enum in to_be_combined_v2:
                 features.append(x)
-        # for block in self.blocks:
-        #     x = block(x)
-        #     features.append(x)
-        # v2 is also used for v3 and v4
-        
-        # to_be_combined_v5 = [11, 19, 59, 99] # last layers of each stage with the same number of channels
-        # for enum, block in enumerate(self.blocks):
-        #     x = block(x)
-        #     if enum in to_be_combined_v5:
-        #         features.append(x)
-
-        # x = self.head_act(self.head_bn(self.head_conv(x)))
-        # x = self.dropout(torch.flatten(self.avpool(x), 1))
-        # x = self.fc(x)
-
         return features

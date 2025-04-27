@@ -1542,3 +1542,99 @@ class CTRBOX_ExplicitCornersV2(nn.Module):
             if 'hm' in head or 'cls' in head:
                 dec_dict[head] = torch.sigmoid(dec_dict[head])
         return dec_dict
+class CTRBOX_CombinedV1(nn.Module):
+    def __init__(self, heads, pretrained, down_ratio, final_kernel, head_conv):
+        super().__init__()
+        channels = [3, 64, 256, 512, 1024, 2048]
+        assert down_ratio in [2, 4, 8, 16]
+        self.l1 = int(np.log2(down_ratio))
+        self.base_network = efficientnet_v2.EfficientNetV2('xl',
+                        in_channels=3,
+                        n_classes=256,
+                        pretrained=True)
+        self.adapter_layer = nn.Sequential(nn.Conv2d(32, 64, kernel_size=7, stride=2, padding=3, bias=False),
+                                        nn.BatchNorm2d(64),
+                                        nn.ReLU(inplace=True),
+                                        nn.Conv2d(64, 256, kernel_size=3, stride=1, padding=1, bias=False),
+                                        nn.BatchNorm2d(256),
+                                        nn.ReLU(inplace=True))
+        self.dec_c2 = CombinationModule(64, 32, batch_norm=True)
+        self.dec_c3 = CombinationModule(256, 64, batch_norm=True)
+        self.dec_c4 = CombinationModule(640, 256, batch_norm=True)                                
+        self.heads = heads
+        self.aux_heads = heads
+        self.adapt_aux = nn.Sequential(nn.Conv2d(640, 256, kernel_size=1, stride=1, padding=0, bias=True),
+                                        nn.BatchNorm2d(256),
+                                        nn.ReLU(inplace=True))
+
+
+        for head in self.heads:
+            classes = self.heads[head]
+            if head == 'wh':
+                fc = nn.Sequential(mini_inception.MiniInception(),
+                                   nn.ReLU(inplace=True),
+                                   nn.Conv2d(channels[self.l1], head_conv, kernel_size=7, padding=3, bias=True),
+                                #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   nn.ReLU(inplace=True),
+                                   nn.Conv2d(head_conv, classes, kernel_size=7, padding=3, bias=True))
+            else:
+                fc = nn.Sequential(nn.Conv2d(channels[self.l1], head_conv, kernel_size=3, padding=1, bias=True),
+                                #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   nn.ReLU(inplace=True),
+                                   nn.Conv2d(head_conv, classes, kernel_size=final_kernel, stride=1, padding=final_kernel // 2, bias=True))
+            if 'hm' in head:
+                fc[-1].bias.data.fill_(-2.19)
+            else:
+                self.fill_fc_weights(fc)
+
+            self.__setattr__(head, fc)
+        for head in self.aux_heads:
+            
+            classes = self.heads[head]
+            if head == 'wh':
+                fc = nn.Sequential(mini_inception.MiniInception(),
+                                   nn.ReLU(inplace=True),
+                                   nn.Conv2d(channels[self.l1], head_conv, kernel_size=7, padding=3, bias=True),
+                                #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   nn.ReLU(inplace=True),
+                                   nn.Conv2d(head_conv, classes, kernel_size=7, padding=3, bias=True))
+            else:
+                fc = nn.Sequential(nn.Conv2d(channels[self.l1], head_conv, kernel_size=3, padding=1, bias=True),
+                                #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   nn.ReLU(inplace=True),
+                                   nn.Conv2d(head_conv, classes, kernel_size=final_kernel, stride=1, padding=final_kernel // 2, bias=True))
+            if 'hm' in head:
+                fc[-1].bias.data.fill_(-2.19)
+            else:
+                self.fill_fc_weights(fc)
+
+            self.__setattr__('aux_' + head, fc)
+
+    def fill_fc_weights(self, m):
+        if isinstance(m, nn.Conv2d):
+            if m.bias is not None:
+                nn.init.constant_(m.bias, 0)
+
+    def forward(self, x):
+        x = self.base_network(x)
+        # for idx, layer in enumerate(x):
+        #     print('layer {} shape: {}'.format(idx, layer.shape))
+
+        upscaled = F.interpolate(x[-1], size=(152, 152), mode='bilinear', align_corners=False)
+        upscaled = self.adapt_aux(upscaled)
+
+        c4_combine = self.dec_c4(x[-1], x[-2])
+        c3_combine = self.dec_c3(c4_combine, x[-3])
+        c2_combine = self.dec_c2(c3_combine, x[-4])
+        c2_combine = self.adapter_layer(c2_combine)
+        dec_dict = {}
+        for head in self.heads:
+            dec_dict[head] = self.__getattr__(head)(c2_combine)
+            if 'hm' in head or 'cls' in head:
+                dec_dict[head] = torch.sigmoid(dec_dict[head])
+        aux_dict = {}
+        for head in self.aux_heads:
+            aux_dict[head] = self.__getattr__('aux_' + head)(upscaled)
+            if 'hm' in head or 'cls' in head:
+                aux_dict[head] = torch.sigmoid(aux_dict[head])
+        return dec_dict, aux_dict

@@ -258,13 +258,13 @@ class LossAll_aux(torch.nn.Module):
         #     print(f"corners_loss: {corners_loss.item()}")
         # print('-----------------')
         aux_loss = aux_hm_loss + aux_wh_loss + aux_off_loss + aux_cls_theta_loss
-        print('aux_loss is {}'.format(aux_loss))
+        # print('aux_loss is {}'.format(aux_loss))
         aux_loss = aux_loss * self.ratio
-        print('ratio is {}'.format(self.ratio))
+        # print('ratio is {}'.format(self.ratio))
         main_loss =  hm_loss + wh_loss + off_loss + cls_theta_loss
-        print('main_loss is {}'.format(main_loss))
+        # print('main_loss is {}'.format(main_loss))
         loss = aux_loss + main_loss
-        print('loss is {}'.format(loss))
+        # print('loss is {}'.format(loss))
         return loss
 class FocalLossSeverePunish(nn.Module):
     def __init__(self):
@@ -317,4 +317,22 @@ class LossHeatmapOnly(torch.nn.Module):
             print('this is nan')
 
         loss =  hm_loss
+        return loss
+class LossHeatmapOnly_aux(torch.nn.Module):
+    def __init__(self, ratio=0.1):
+        super().__init__()
+        self.ratio = ratio
+        self.L_hm = FocalLossSeverePunish()
+
+    def forward(self, pr_decs, gt_batch):
+        pr_decs, aux_decs = pr_decs
+        hm_loss  = self.L_hm(pr_decs['hm'], gt_batch['hm'])
+        aux_hm_loss  = self.L_hm(aux_decs['hm'], gt_batch['hm'])
+        if isnan(hm_loss):
+            print('hm loss is {}'.format(hm_loss))
+            print('aux_hm_loss is {}'.format(aux_hm_loss))
+            print('this is nan')
+
+
+        loss =  hm_loss + aux_hm_loss * self.ratio
         return loss
