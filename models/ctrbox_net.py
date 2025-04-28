@@ -641,7 +641,7 @@ class CTRBOX_Swin(nn.Module):
         for head in self.heads:
             classes = self.heads[head]
             if head == 'wh':
-                fc = nn.Sequential(nn.Conv2d(96, head_conv, kernel_size=3, padding=1, bias=True),
+                fc = nn.Sequential(nn.Conv2d(256, head_conv, kernel_size=3, padding=1, bias=True),
                                 #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
                                    Permute([0, 2, 3, 1]), 
                                    torch.nn.LayerNorm(head_conv),
@@ -649,7 +649,7 @@ class CTRBOX_Swin(nn.Module):
                                    nn.ReLU(inplace=True),
                                    nn.Conv2d(head_conv, classes, kernel_size=3, padding=1, bias=True))
             else:
-                fc = nn.Sequential(nn.Conv2d(96, head_conv, kernel_size=3, padding=1, bias=True),
+                fc = nn.Sequential(nn.Conv2d(256, head_conv, kernel_size=3, padding=1, bias=True),
                                 #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
                                    Permute([0, 2, 3, 1]), 
                                    torch.nn.LayerNorm(head_conv),
