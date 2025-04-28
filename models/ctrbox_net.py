@@ -633,9 +633,9 @@ class CTRBOX_Swin(nn.Module):
 
         self.base_network = swin.SwinEncoder(pretrained=True, freeze_backbone=False)
 
-        self.dec_c2 = CombinationModule(192, 96, layer_norm=True)
-        self.dec_c3 = CombinationModule(384, 192, layer_norm=True)
-        self.dec_c4 = CombinationModule(768, 384, layer_norm=True)
+        self.dec_c2 = CombinationModule(512, 256, layer_norm=True)
+        self.dec_c3 = CombinationModule(1024, 512, layer_norm=True)
+        self.dec_c4 = CombinationModule(2048, 1024, layer_norm=True)
         self.heads = heads
 
         for head in self.heads:

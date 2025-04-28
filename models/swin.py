@@ -9,10 +9,10 @@ class SwinEncoder(nn.Module):
 
         # Load pre-trained Swin model
         if pretrained:
-            weights = Swin_T_Weights.IMAGENET1K_V1
+            weights = Swin_S_Weights.IMAGENET1K_V1
         else:
             weights = None
-        swin = swin_t(weights = weights, progress = True)
+        swin = swin_s(weights = weights, progress = True)
         # print(swin)
 
         self.encoder = swin.features
@@ -40,12 +40,16 @@ class SwinEncoder(nn.Module):
             nn.LayerNorm(in_channels),
             nn.ReLU(inplace=True),
             Permute([0, 3, 1, 2]),
-            # nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=1, padding=1),
-            # Permute([0, 2, 3, 1]), 
-            # torch.nn.LayerNorm(out_channels),
-            # Permute([0, 3, 1, 2]),
-            # nn.ReLU(inplace=True),
-            # nn.Conv2d(out_channels, out_channels, kernel_size=1, stride=1, padding=0)
+            nn.Conv2d(in_channels, in_channels, kernel_size=3, stride=1, padding=1),
+            Permute([0, 2, 3, 1]), 
+            torch.nn.LayerNorm(in_channels),
+            Permute([0, 3, 1, 2]),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=1, padding=0),
+            Permute([0, 2, 3, 1]), 
+            torch.nn.LayerNorm(out_channels),
+            Permute([0, 3, 1, 2]),
+            nn.ReLU(inplace=True)
         )
 
     def forward(self, x):
