@@ -9,10 +9,10 @@ class SwinEncoder(nn.Module):
 
         # Load pre-trained Swin model
         if pretrained:
-            weights = Swin_S_Weights.IMAGENET1K_V1
+            weights = Swin_T_Weights.IMAGENET1K_V1
         else:
             weights = None
-        swin = swin_s(weights = weights, progress = True)
+        swin = swin_t(weights = weights, progress = True)
         # print(swin)
 
         self.encoder = swin.features
