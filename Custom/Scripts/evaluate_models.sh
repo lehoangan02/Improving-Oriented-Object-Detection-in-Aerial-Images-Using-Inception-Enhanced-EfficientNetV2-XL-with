@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=myjob
-#SBATCH --output=output_eval_3.log
+#SBATCH --output=output_eval_10.log
 #SBATCH --gres=gpu:1
 #SBATCH --mem=60G
 #SBATCH --time=24:00:00
@@ -38,7 +38,7 @@ result_dir="Result/combinedV1_chpc"
 # A folder named "Result" will be created in the current directory to store the evaluation results
 
 # Array of model epochs to evaluate
-epochs=(7)
+epochs=(24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 34)
 cd ../..
 
 # Create the result directory if it doesn't exist
