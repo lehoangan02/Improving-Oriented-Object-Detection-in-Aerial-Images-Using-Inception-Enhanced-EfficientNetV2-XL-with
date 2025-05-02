@@ -38,7 +38,7 @@ result_dir="Result/combinedV1_chpc"
 # A folder named "Result" will be created in the current directory to store the evaluation results
 
 # Array of model epochs to evaluate
-epochs=(24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 34)
+epochs=(24 25 26 27 28 29 30 31 32 33 34 35 36 37)
 cd ../..
 
 # Create the result directory if it doesn't exist
