@@ -11,7 +11,7 @@ import os
 
 def parse_args():
     parser = argparse.ArgumentParser(description='BBAVectors Implementation')
-    parser.add_argument('--num_epoch', type=int, default=1, help='Number of epochs')
+    parser.add_argument('--num_epoch', type=int, default=80, help='Number of epochs')
     parser.add_argument('--batch_size', type=int, default=16, help='Number of batch size')
     parser.add_argument('--num_workers', type=int, default=4, help='Number of workers')
     parser.add_argument('--init_lr', type=float, default=1.25e-4, help='Initial learning rate')
@@ -39,7 +39,7 @@ if __name__ == '__main__':
              'cls_theta': 1
              }
     down_ratio = 4
-    model = ctrbox_net.CTRBOX_Github_aux(heads=heads,
+    model = ctrbox_net.CTRBOX_CombinedV1(heads=heads,
                               pretrained=True,
                               down_ratio=down_ratio,
                               final_kernel=1,
