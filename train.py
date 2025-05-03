@@ -90,7 +90,7 @@ class TrainModule(object):
 
     def train_network(self, args):
 
-        self.optimizer = torch.optim.Adam(self.model.parameters(), args.init_lr)
+        self.optimizer = torch.optim.Adam(self.model.parameters(), args.init_lr, weight_decay=1e-4)
         self.scheduler = torch.optim.lr_scheduler.ExponentialLR(self.optimizer, gamma=0.96, last_epoch=-1)
         save_path = 'weights_'+args.dataset
         start_epoch = 1
@@ -113,11 +113,7 @@ class TrainModule(object):
                 self.model = nn.DataParallel(self.model)
         self.model.to(self.device)
 
-<<<<<<< HEAD
         criterion = loss.LossAll_aux(0.2)
-=======
-        criterion = loss.LossAll()
->>>>>>> conventional
         print('Setting up data...')
 
         dataset_module = self.dataset[args.dataset]

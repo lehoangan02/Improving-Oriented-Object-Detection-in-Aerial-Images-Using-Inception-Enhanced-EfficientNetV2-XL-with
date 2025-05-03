@@ -1415,8 +1415,6 @@ class CTRBOX_Github_aux(nn.Module):
             if 'hm' in head or 'cls' in head:
                 aux_dict[head] = torch.sigmoid(aux_dict[head])
         return dec_dict, aux_dict
-<<<<<<< HEAD
-=======
 class CTRBOX_ExplicitCorners(nn.Module):
     def __init__(self, heads, pretrained, down_ratio, final_kernel, head_conv):
         super().__init__()
@@ -1576,12 +1574,12 @@ class CTRBOX_CombinedV1(nn.Module):
                 fc = nn.Sequential(mini_inception.MiniInception(),
                                    nn.ReLU(inplace=True),
                                    nn.Conv2d(channels[self.l1], head_conv, kernel_size=7, padding=3, bias=True),
-                                #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
                                    nn.ReLU(inplace=True),
                                    nn.Conv2d(head_conv, classes, kernel_size=7, padding=3, bias=True))
             else:
                 fc = nn.Sequential(nn.Conv2d(channels[self.l1], head_conv, kernel_size=3, padding=1, bias=True),
-                                #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
                                    nn.ReLU(inplace=True),
                                    nn.Conv2d(head_conv, classes, kernel_size=final_kernel, stride=1, padding=final_kernel // 2, bias=True))
             if 'hm' in head:
@@ -1597,12 +1595,12 @@ class CTRBOX_CombinedV1(nn.Module):
                 fc = nn.Sequential(mini_inception.MiniInception(),
                                    nn.ReLU(inplace=True),
                                    nn.Conv2d(channels[self.l1], head_conv, kernel_size=7, padding=3, bias=True),
-                                #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
                                    nn.ReLU(inplace=True),
                                    nn.Conv2d(head_conv, classes, kernel_size=7, padding=3, bias=True))
             else:
                 fc = nn.Sequential(nn.Conv2d(channels[self.l1], head_conv, kernel_size=3, padding=1, bias=True),
-                                #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
+                                   nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
                                    nn.ReLU(inplace=True),
                                    nn.Conv2d(head_conv, classes, kernel_size=final_kernel, stride=1, padding=final_kernel // 2, bias=True))
             if 'hm' in head:
@@ -1736,4 +1734,3 @@ class CTRBOX_CombinedV2(nn.Module):
             if 'hm' in head or 'cls' in head:
                 aux_dict[head] = torch.sigmoid(aux_dict[head])
         return dec_dict, aux_dict
->>>>>>> conventional
