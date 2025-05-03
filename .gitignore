@@ -157,6 +157,15 @@ Custom/Scripts/evaluate_models.sh
 /datasets/images
 datasets/val_label.tar.gz
 datasets/val_image.tar.gz
+/datasets/images
+/seg
+/datasets/MiniValidateV1
+Custom/Scripts/mintty.2025-03-14_17-08-57.png
+datasets/MiniValidateV1.zip
+/datasets/GLH_Validate
+/datasets/MiniValidateV1
+datasets/MiniValidateV1.zip
+/mmsegCuda
 datasets/glh_25pct
 datasets/trainsplit
 
