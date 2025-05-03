@@ -167,6 +167,7 @@ datasets/MiniValidateV1.zip
 datasets/MiniValidateV1.zip
 /mmsegCuda
 datasets/glh_25pct
+datasets/trainslpit
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
