@@ -157,6 +157,8 @@ Custom/Scripts/evaluate_models.sh
 /datasets/images
 datasets/val_label.tar.gz
 datasets/val_image.tar.gz
+datasets/glh_25pct
+datasets/trainsplit
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
