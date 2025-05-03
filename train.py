@@ -90,7 +90,7 @@ class TrainModule(object):
 
     def train_network(self, args):
 
-        self.optimizer = torch.optim.Adam(self.model.parameters(), args.init_lr)
+        self.optimizer = torch.optim.Adam(self.model.parameters(), args.init_lr, weight_decay=1e-4)
         self.scheduler = torch.optim.lr_scheduler.ExponentialLR(self.optimizer, gamma=0.96, last_epoch=-1)
         save_path = 'weights_'+args.dataset
         start_epoch = 1
@@ -140,6 +140,7 @@ class TrainModule(object):
             print('-'*10)
             print(f"Dataset length: {len(dsets['train'])}")
             print('Epoch: {}/{} '.format(epoch, args.num_epoch))
+            print('Learning rate: {}'.format(self.optimizer.param_groups[0]['lr']))
             epoch_loss = self.run_epoch(phase='train',
                                         data_loader=dsets_loader['train'],
                                         criterion=criterion)
