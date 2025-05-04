@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=myjob
-#SBATCH --output=output_eval_9.log
+#SBATCH --output=output_eval_11.log
 #SBATCH --gres=gpu:1
 #SBATCH --mem=60G
 #SBATCH --time=24:00:00
@@ -9,8 +9,6 @@
 source /home/hvtham/miniconda3/bin/activate
 conda activate myenv
 cd /media02/hvtham/group3/BBAVectors-Oriented-Object-Detection
-git pull
-git switch conventional
 cd Custom/Scripts
 
 echo "Running evaluation for all models in the model directory..."
@@ -38,7 +36,7 @@ result_dir="Result/combinedV1_chpc"
 # A folder named "Result" will be created in the current directory to store the evaluation results
 
 # Array of model epochs to evaluate
-epochs=(9 10 11 12 13 14 15 16 17 18 19 20 21 22 23)
+epochs=(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23)
 cd ../..
 
 # Create the result directory if it doesn't exist
