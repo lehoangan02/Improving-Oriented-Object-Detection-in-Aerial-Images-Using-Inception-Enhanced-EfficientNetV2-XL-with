@@ -45,8 +45,8 @@ class DOTA(BaseDataset):
         self.label_path = os.path.join(data_dir, 'labelTxt')
 
     def load_img_ids(self):
-        if self.phase == 'train':
-            image_set_index_file = os.path.join(self.data_dir, 'trainval.txt')
+        if self.phase == 'train': # note
+            image_set_index_file = os.path.join(self.data_dir, './trainval.txt')
         else:
             image_set_index_file = os.path.join(self.data_dir, self.phase + '.txt')
         assert os.path.exists(image_set_index_file), 'Path does not exist: {}'.format(image_set_index_file)
@@ -70,7 +70,7 @@ class DOTA(BaseDataset):
         h,w,c = image.shape
         valid_pts = []
         valid_cat = []
-        valid_dif = []
+        valid_dif = [] # difficult
         with open(self.load_annoFolder(self.img_ids[index]), 'r') as f:
             for i, line in enumerate(f.readlines()):
                 obj = line.split(' ')  # list object
@@ -116,6 +116,9 @@ class DOTA(BaseDataset):
         # if k == ord('q'):
         #     cv2.destroyAllWindows()
         #     exit()
+
+        print(f"Loaded sample with dif: {annotation['dif']}")
+
         return annotation
 
 

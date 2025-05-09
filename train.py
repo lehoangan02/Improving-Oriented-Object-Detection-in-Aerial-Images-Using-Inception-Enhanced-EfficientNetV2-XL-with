@@ -14,6 +14,12 @@ def collater(data):
     for name in data[0]:
         out_data_dict[name] = []
     for sample in data:
+
+        # if 'dif' in sample:
+        #     print('dif value:', sample['dif'])
+        # else:
+        #     print('dif does not exist in sample')
+
         for name in sample:
             out_data_dict[name].append(torch.from_numpy(sample[name]))
     for name in out_data_dict:
@@ -84,7 +90,8 @@ class TrainModule(object):
             for k, v in state.items():
                 if isinstance(v, torch.Tensor):
                     state[k] = v.cuda()
-        epoch = checkpoint['epoch']
+       # epoch = checkpoint['epoch']
+        epoch = 1
         # loss = checkpoint['loss']
         return model, optimizer, epoch
 
@@ -98,10 +105,9 @@ class TrainModule(object):
         # add resume part for continuing training when break previously, 10-16-2020
         if args.resume_train:
             self.model, self.optimizer, start_epoch = self.load_model(self.model, 
-                                                                        self.optimizer, 
-                                                                        args.resume_train, 
-                                                                        strict=True)
-            start_epoch += 1
+                                                        self.optimizer, 
+                                                        args.resume_train, 
+                                                        strict=True)
         # end 
 
         if not os.path.exists(save_path):
@@ -177,13 +183,29 @@ class TrainModule(object):
                 self.optimizer.zero_grad()
                 with torch.enable_grad():
                     pr_decs = self.model(data_dict['input'])
-                    loss = criterion(pr_decs, data_dict)
+                   
+                    gt_batch = data_dict
+                    if 'dif' in data_dict:
+                        gt_batch['dif'] = data_dict['dif']
+                    else: 
+                        print('dif does not exist in data_dict')
+                    loss = criterion(pr_decs, gt_batch)
+
+                    # loss = criterion(pr_decs, data_dict)
                     loss.backward()
                     self.optimizer.step()
             else:
                 with torch.no_grad():
                     pr_decs = self.model(data_dict['input'])
-                    loss = criterion(pr_decs, data_dict)
+
+                    gt_batch = data_dict
+                    if 'dif' in data_dict:
+                        gt_batch['dif'] = data_dict['dif']
+                    else: 
+                        print('dif does not exist in data_dict')
+                    loss = criterion(pr_decs, gt_batch)
+
+                    # loss = criterion(pr_decs, data_dict)
 
             running_loss += loss.item()
         epoch_loss = running_loss / len(data_loader)

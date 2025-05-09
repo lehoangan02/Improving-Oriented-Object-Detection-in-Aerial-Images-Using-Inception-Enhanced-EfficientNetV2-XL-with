@@ -137,5 +137,64 @@ class LossAll(torch.nn.Module):
         #     print(f"corners_loss: {corners_loss.item()}")
         # print('-----------------')
 
-        loss =  hm_loss + wh_loss + off_loss + cls_theta_loss+corners_loss
+        loss =  hm_loss + wh_loss + off_loss + cls_theta_loss + corners_loss
+        return loss
+
+class LossAll2(torch.nn.Module):
+    def __init__(self):
+        super(LossAll2, self).__init__()
+        self.L_hm = FocalLoss()
+        self.L_wh = OffSmoothL1Loss()
+        self.L_off = OffSmoothL1Loss()
+        self.L_cls_theta = BCELoss()
+        self.L_corners = OffSmoothL1Loss()
+
+    def forward(self, pr_decs, gt_batch):
+
+        for key, value in gt_batch.items():
+            print(f"{key}: {value.size()}")
+        print('-----------------')
+        for key, value in pr_decs.items():
+            print(f"{key}: {value.size()}")
+        print('-----------------')
+
+        hm_loss  = self.L_hm(pr_decs['hm'], gt_batch['hm'])
+        wh_loss  = self.L_wh(pr_decs['wh'], gt_batch['reg_mask'], gt_batch['ind'], gt_batch['wh'])
+        off_loss = self.L_off(pr_decs['reg'], gt_batch['reg_mask'], gt_batch['ind'], gt_batch['reg'])
+        
+        if 'corners' in pr_decs:
+            corners_loss = self.L_corners(pr_decs['corners'], gt_batch['reg_mask'], gt_batch['ind'], gt_batch['corners'])
+        else:
+            corners_loss = 0
+
+        # Calculate the classification loss for cls_theta
+        cls_theta_loss = self.L_cls_theta(pr_decs['cls_theta'], gt_batch['reg_mask'], gt_batch['ind'], gt_batch['cls_theta'])
+
+        # Get difficulty levels from ground truth batch
+        difficulty = gt_batch['dif']  # Assuming 'dif' contains difficulty values
+        
+        # Adjust loss scaling based on difficulty
+        loss_scale = torch.ones_like(difficulty)
+
+        # Apply different scaling based on difficulty
+        loss_scale[difficulty == 1] = 1.5  # Scale by 1.5 when difficulty is 1
+        loss_scale[difficulty == 2] = 2.0  # Scale by 2.0 when difficulty is 2
+
+        # Apply difficulty-based scaling to each loss
+        hm_loss *= loss_scale
+        wh_loss *= loss_scale
+        off_loss *= loss_scale
+        corners_loss *= loss_scale
+        cls_theta_loss *= loss_scale
+
+        # Check for NaN in loss values
+        if torch.isnan(hm_loss).any() or torch.isnan(wh_loss).any() or torch.isnan(off_loss).any():
+            print('hm loss is {}'.format(hm_loss))
+            print('wh loss is {}'.format(wh_loss))
+            print('off loss is {}'.format(off_loss))
+            print('corners loss is {}'.format(corners_loss))
+
+        # Total loss
+        loss = hm_loss.sum() + wh_loss.sum() + off_loss.sum() + cls_theta_loss.sum() + corners_loss.sum()
+
         return loss

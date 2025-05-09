@@ -70,7 +70,7 @@ class DecDecoder(object):
         feat = self._gather_feat(feat, ind)
         return feat
 
-    def ctdet_decode(self, pr_decs):
+    def ctdet_decode(self, pr_decs): 
         heat = pr_decs['hm']
         wh = pr_decs['wh']
         reg = pr_decs['reg']
