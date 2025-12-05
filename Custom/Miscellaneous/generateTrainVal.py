@@ -1,7 +1,7 @@
 import os
 
-image_folder = 'images'
-output_file = 'trainval.txt'
+image_folder = r'/media/dptphat/McQueen/datasets/GLH_Bridge/glh_train_split/images'
+output_file = r'/media/dptphat/McQueen/datasets/GLH_Bridge/glh_train_split/trainval.txt'
 
 # Get all file names in the images folder
 image_files = os.listdir(image_folder)
