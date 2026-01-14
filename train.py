@@ -6,6 +6,7 @@ import loss
 import cv2
 import func_utils
 from datasets.dataset_dota import DOTA
+from tqdm import tqdm
 # import torch_xla.core.xla_model as xm
 # import TestDevice.testtpu as testtpu
 
@@ -140,6 +141,7 @@ class TrainModule(object):
             print('-'*10)
             print(f"Dataset length: {len(dsets['train'])}")
             print('Epoch: {}/{} '.format(epoch, args.num_epoch))
+            print('Learning rate: {}'.format(self.optimizer.param_groups[0]['lr']))
             epoch_loss = self.run_epoch(phase='train',
                                         data_loader=dsets_loader['train'],
                                         criterion=criterion)
@@ -170,7 +172,7 @@ class TrainModule(object):
             self.model.eval()
         running_loss = 0.
         
-        for data_dict in data_loader:
+        for data_dict in tqdm(data_loader, unit='batch'):
             for name in data_dict:
                 data_dict[name] = data_dict[name].to(device=self.device, non_blocking=True)
             if phase == 'train':
