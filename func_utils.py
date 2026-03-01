@@ -93,8 +93,8 @@ def write_results(args,
                 nms_results = non_maximum_suppression(pts_cat, scores_cat)
                 results[cat][img_id].extend(nms_results)
         if print_ps:
-            
-            print('testing {}/{} data {}'.format(index+1, len(dsets), img_id))
+            pass
+            # print('testing {}/{} data {}'.format(index+1, len(dsets), img_id))
 
     for cat in dsets.category:
         if cat == 'background':
