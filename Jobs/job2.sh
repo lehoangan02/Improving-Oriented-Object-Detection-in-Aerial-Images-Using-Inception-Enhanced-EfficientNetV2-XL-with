@@ -43,7 +43,7 @@ if [ ! -f "$DEVKIT_DIR/polyiou.cpython-*.so" ]; then
 fi
 
 python main.py \
-  --data_dir /media02/hvtham/DATA/BridgeTrain \
+  --data_dir /media02/hvtham/DATA/DOTA_TRAIN_608 \
   --num_epoch 50 \
   --batch_size 15 \
   --dataset dota \
