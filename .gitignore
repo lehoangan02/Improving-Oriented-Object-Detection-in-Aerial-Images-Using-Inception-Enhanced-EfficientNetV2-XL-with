@@ -332,3 +332,5 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+efficientnetv2-xl-21k.tgz
+/efficientnetv2-xl-21k

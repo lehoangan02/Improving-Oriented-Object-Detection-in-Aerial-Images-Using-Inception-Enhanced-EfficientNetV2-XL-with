@@ -1,6 +1,7 @@
 import torch.nn as nn
 import numpy as np
 import torch
+import timm
 from .model_parts import CombinationModule
 from . import resnet
 from . import densenet
@@ -315,66 +316,88 @@ class CTRBOX_DenseNet(nn.Module):
         #     print(dec, dec_dict[dec].shape)
         return dec_dict
 class CTRBOX_EfficientNetV2(nn.Module):
-    def __init__(self, heads, pretrained, down_ratio, final_kernel, head_conv):
+
+    def __init__(self, heads, pretrained=True, down_ratio=4, final_kernel=1, head_conv=256):
         super().__init__()
-        channels = [3, 64, 256, 512, 1024, 2048]
+
         assert down_ratio in [2, 4, 8, 16]
         self.l1 = int(np.log2(down_ratio))
-        # self.base_network = torch.hub.load('pytorch/vision:v0.10.0', 'densenet121', pretrained=True)
-        self.base_network = efficientnet_v2.EfficientNetV2('xl',
-                        in_channels=3,
-                        n_classes=256,
-                        pretrained=True)
-        self.adapter_layer = nn.Sequential(nn.Conv2d(32, 64, kernel_size=7, stride=2, padding=3, bias=False),
-                                        nn.BatchNorm2d(64),
-                                        nn.ReLU(inplace=True),
-                                        nn.Conv2d(64, 256, kernel_size=3, stride=1, padding=1, bias=False),
-                                        nn.BatchNorm2d(256),
-                                        nn.ReLU(inplace=True))
-        self.dec_c2 = CombinationModule(64, 32, batch_norm=True)
-        self.dec_c3 = CombinationModule(256, 64, batch_norm=True)
-        self.dec_c4 = CombinationModule(640, 256, batch_norm=True)                                
+
+        # EfficientNetV2-XL backbone
+        self.base_network = timm.create_model(
+            "tf_efficientnetv2_xl",
+            pretrained=pretrained,
+            features_only=True,
+            out_indices=(1, 2, 3, 4)
+        )
+
+        # REAL backbone channels
+        channels = [64, 96, 256, 640]
+
+        # FPN / decoder
+        self.dec_c4 = CombinationModule(channels[3], channels[2], batch_norm=True)
+        self.dec_c3 = CombinationModule(channels[2], channels[1], batch_norm=True)
+        self.dec_c2 = CombinationModule(channels[1], channels[0], batch_norm=True)
+
+        # convert final feature to 256 for detection head
+        self.adapter_layer = nn.Sequential(
+            nn.Conv2d(channels[0], 256, kernel_size=3, padding=1, bias=False),
+            nn.BatchNorm2d(256),
+            nn.ReLU(inplace=True)
+        )
+
         self.heads = heads
 
         for head in self.heads:
             classes = self.heads[head]
+
             if head == 'wh':
-                fc = nn.Sequential(mini_inception.MiniInception(),
-                                   nn.ReLU(inplace=True),
-                                   nn.Conv2d(channels[self.l1], head_conv, kernel_size=7, padding=3, bias=True),
-                                #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
-                                   nn.ReLU(inplace=True),
-                                   nn.Conv2d(head_conv, classes, kernel_size=7, padding=3, bias=True))
+                fc = nn.Sequential(
+                    mini_inception.MiniInception(),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(256, head_conv, kernel_size=3, padding=1),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(head_conv, classes, kernel_size=3, padding=1)
+                )
             else:
-                fc = nn.Sequential(nn.Conv2d(channels[self.l1], head_conv, kernel_size=3, padding=1, bias=True),
-                                #    nn.BatchNorm2d(head_conv),   # BN not used in the paper, but would help stable training
-                                   nn.ReLU(inplace=True),
-                                   nn.Conv2d(head_conv, classes, kernel_size=final_kernel, stride=1, padding=final_kernel // 2, bias=True))
+                fc = nn.Sequential(
+                    nn.Conv2d(256, head_conv, kernel_size=3, padding=1),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(head_conv, classes, kernel_size=final_kernel,
+                              padding=final_kernel // 2)
+                )
+
             if 'hm' in head:
                 fc[-1].bias.data.fill_(-2.19)
-            else:
-                self.fill_fc_weights(fc)
 
             self.__setattr__(head, fc)
-        # print_layers.print_layers(self)
-
-    def fill_fc_weights(self, m):
-        if isinstance(m, nn.Conv2d):
-            if m.bias is not None:
-                nn.init.constant_(m.bias, 0)
 
     def forward(self, x):
-        x = self.base_network(x)
-        c4_combine = self.dec_c4(x[-1], x[-2])
-        c3_combine = self.dec_c3(c4_combine, x[-3])
-        c2_combine = self.dec_c2(c3_combine, x[-4])
-        c2_combine = self.adapter_layer(c2_combine)
-        dec_dict = {}
+
+        feats = self.base_network(x)
+
+        c1 = feats[0]   # 64
+        c2 = feats[1]   # 96
+        c3 = feats[2]   # 256
+        c4 = feats[3]   # 640
+
+        c4 = self.dec_c4(c4, c3)
+        c3 = self.dec_c3(c4, c2)
+        c2 = self.dec_c2(c3, c1)
+
+        x = self.adapter_layer(c2)
+
+        outputs = {}
+
         for head in self.heads:
-            dec_dict[head] = self.__getattr__(head)(c2_combine)
-            if 'hm' in head or 'cls' in head:
-                dec_dict[head] = torch.sigmoid(dec_dict[head])
-        return dec_dict
+            out = self.__getattr__(head)(x)
+
+            if 'hm' in head:
+                out = torch.sigmoid(out)
+
+            outputs[head] = out
+
+        return outputs
 class CTRBOX_ImplicitCorners(nn.Module):
     def __init__(self, heads, pretrained, down_ratio, final_kernel, head_conv):
         super().__init__()
