@@ -45,11 +45,10 @@ fi
 python main.py \
   --data_dir /media02/hvtham/DATA/BridgeTrain \
   --num_epoch 50 \
-  --batch_size 20 \
+  --batch_size 8 \
   --dataset dota \
   --phase train \
-  --conf_thresh 0.1 \
-  --resume_train ./weights_dota/model_8.pth
+  --conf_thresh 0.1
 
 end_time=$(date +%s)
 
