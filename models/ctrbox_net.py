@@ -392,7 +392,7 @@ class CTRBOX_EfficientNetV2(nn.Module):
         for head in self.heads:
             out = self.__getattr__(head)(x)
 
-            if 'hm' in head:
+            if 'hm' in head or 'cls' in head:
                 out = torch.sigmoid(out)
 
             outputs[head] = out
