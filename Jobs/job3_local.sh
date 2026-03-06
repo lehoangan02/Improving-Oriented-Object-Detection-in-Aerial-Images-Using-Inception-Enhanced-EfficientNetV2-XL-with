@@ -21,7 +21,7 @@ export PYTHONPATH=$PROJECT_DIR:$DEVKIT_DIR:${PYTHONPATH:-}
 
 python -c "import torch; print('CUDA:', torch.cuda.is_available())"
 
-for i in $(seq 1 50)
+for i in $(seq 2 50)
 do
 echo "========================================"
 echo "Evaluating model_$i.pth"
