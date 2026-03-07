@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=eval_all
-#SBATCH --output=eval_all_attempt2_1.log
+#SBATCH --output=eval_al_ef1.log
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=2
-#SBATCH --mem=20G
+#SBATCH --mem=40G
 #SBATCH --time=48:00:00
 
 set -euo pipefail
@@ -19,7 +19,7 @@ conda activate /media02/hvtham/conda_envs/myenv
 
 PROJECT_DIR=/media02/hvtham/BBAV/Improving-Oriented-Object-Detection-in-Aerial-Images-Using-Inception-Enhanced-EfficientNetV2-XL-with
 DEVKIT_DIR=$PROJECT_DIR/datasets/DOTA_devkit
-WEIGHTS_DIR=$PROJECT_DIR/weights_dota/attempt2
+WEIGHTS_DIR=$PROJECT_DIR/weights_dota
 OUTPUT_DIR=$PROJECT_DIR/eval_results
 
 mkdir -p "$OUTPUT_DIR"

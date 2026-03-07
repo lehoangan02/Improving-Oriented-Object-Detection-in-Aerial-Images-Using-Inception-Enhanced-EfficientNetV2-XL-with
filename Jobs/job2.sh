@@ -45,7 +45,7 @@ fi
 python main.py \
   --data_dir /media02/hvtham/DATA/BridgeTrain \
   --num_epoch 50 \
-  --batch_size 8 \
+  --batch_size 7 \
   --dataset dota \
   --phase train \
   --conf_thresh 0.1
