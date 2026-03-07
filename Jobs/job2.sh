@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --job-name=baseline_train_test
-#SBATCH --output=baseline_train_test1.log
+#SBATCH --job-name=efv2_train_test
+#SBATCH --output=efv2_train_test2.log
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=40G
@@ -43,9 +43,9 @@ if [ ! -f "$DEVKIT_DIR/polyiou.cpython-*.so" ]; then
 fi
 
 python main.py \
-  --data_dir /media02/hvtham/DATA/DOTA_TRAIN_608 \
+  --data_dir /media02/hvtham/DATA/BridgeTrain \
   --num_epoch 50 \
-  --batch_size 15 \
+  --batch_size 7 \
   --dataset dota \
   --phase train \
   --conf_thresh 0.1
