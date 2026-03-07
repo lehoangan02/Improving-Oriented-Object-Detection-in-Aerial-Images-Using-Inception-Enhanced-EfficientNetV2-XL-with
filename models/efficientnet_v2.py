@@ -516,7 +516,7 @@ class EfficientNetV2(nn.Module):
                       'train_size': 384,
                       'eval_size': 512,
                       'dropout': 0.4,
-                      'weight_url': 'https://api.onedrive.com/v1.0/shares/u!aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBdGlRcHc5VGNjZmlmVXQtRHJLa21taUkxWkE/root/content',
+                      'weight_url': 'https://huggingface.co/abhuse/efficientnet/resolve/main/efficientnet_v2_xl_21k_ft1k-1fcc9744.pth',
                       'model_name': 'efficientnet_v2_xl_21k_ft1k-1fcc9744.pth'}}
 
     def __init__(self,
