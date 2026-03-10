@@ -337,3 +337,8 @@ efficientnetv2-xl-21k/model.index
 efficientnetv2-xl-21k/model.data-00000-of-00001
 efficientnetv2-xl-21k/checkpoint
 efficientnetv2-xl-21k.tgz
+
+/myenv
+
+efficientnetv2-xl-21k.tgz
+/efficientnetv2-xl-21k

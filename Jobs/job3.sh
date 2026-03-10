@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=eval_all
-#SBATCH --output=eval_all.log
+#SBATCH --output=eval_al_ef1.log
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=2
-#SBATCH --mem=20G
+#SBATCH --mem=40G
 #SBATCH --time=48:00:00
 
 set -euo pipefail
@@ -19,41 +19,41 @@ conda activate /media02/hvtham/conda_envs/myenv
 
 PROJECT_DIR=/media02/hvtham/BBAV/Improving-Oriented-Object-Detection-in-Aerial-Images-Using-Inception-Enhanced-EfficientNetV2-XL-with
 DEVKIT_DIR=$PROJECT_DIR/datasets/DOTA_devkit
-WEIGHTS_DIR=$PROJECT_DIR/weights_dota/attempt1
+WEIGHTS_DIR=$PROJECT_DIR/weights_dota
 OUTPUT_DIR=$PROJECT_DIR/eval_results
 
-mkdir -p $OUTPUT_DIR
+mkdir -p "$OUTPUT_DIR"
 
-cd $PROJECT_DIR
+cd "$PROJECT_DIR"
 
 export PYTHONPATH=$PROJECT_DIR:$DEVKIT_DIR:${PYTHONPATH:-}
 
-python -c "import torch; print('CUDA:', torch.cuda.is_available())"
+python -c "import torch; print('CUDA available:', torch.cuda.is_available())"
 
-for i in $(seq 1 50)
-do
-echo "========================================"
-echo "Evaluating model_$i.pth"
-echo "========================================"
+for i in $(seq 1 50); do
+  echo "========================================"
+  echo "Evaluating model_${i}.pth"
+  echo "========================================"
 
-```
-WEIGHTS=$WEIGHTS_DIR/model_${i}.pth
+  WEIGHTS="$WEIGHTS_DIR/model_${i}.pth"
+  if [ ! -f "$WEIGHTS" ]; then
+    echo "Missing weights: $WEIGHTS (skipping)"
+    continue
+  fi
 
-python main.py \
-  --data_dir /media02/hvtham/DATA/DOTA_VAL_608 \
-  --batch_size 16 \
-  --dataset dota \
-  --phase eval \
-  --conf_thresh 0.1 \
-  --resume $WEIGHTS
+  python main.py \
+    --data_dir /media02/hvtham/DATA/DOTA_VAL_608 \
+    --batch_size 16 \
+    --dataset dota \
+    --phase eval \
+    --conf_thresh 0.1 \
+    --resume "$WEIGHTS"
 
-echo "Running DOTA evaluation..."
+  echo "Running DOTA evaluation..."
 
-cd $DEVKIT_DIR
-python dota_evaluation_task1.py > $OUTPUT_DIR/eval_model_${i}.txt
-cd $PROJECT_DIR
-```
-
+  cd "$DEVKIT_DIR"
+  python dota_evaluation_task1.py > "$OUTPUT_DIR/eval_model_${i}.txt"
+  cd "$PROJECT_DIR"
 done
 
 echo "========================================"
