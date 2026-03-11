@@ -7,6 +7,12 @@ import cv2
 import func_utils
 from datasets.dataset_dota import DOTA
 from tqdm import tqdm
+from contextlib import nullcontext
+
+try:
+    from torch.cuda.amp import GradScaler
+except ImportError:  # CUDA build might be unavailable (e.g. Apple Silicon)
+    GradScaler = None
 # import torch_xla.core.xla_model as xm
 # import TestDevice.testtpu as testtpu
 
@@ -42,6 +48,16 @@ class TrainModule(object):
         self.model = model
         self.decoder = decoder
         self.down_ratio = down_ratio
+        self.use_amp = self.device.type in ("cuda", "mps")
+        amp_dtype = torch.float16 if self.use_amp else None
+        self.autocast_kwargs = (
+            {"device_type": self.device.type, "dtype": amp_dtype}
+            if self.use_amp
+            else None
+        )
+        self.scaler = (
+            GradScaler() if self.device.type == "cuda" and GradScaler is not None else None
+        )
 
     def save_model(self, path, epoch, model, optimizer):
         if isinstance(model, torch.nn.DataParallel):
@@ -178,14 +194,31 @@ class TrainModule(object):
             if phase == 'train':
                 self.optimizer.zero_grad()
                 with torch.enable_grad():
-                    pr_decs = self.model(data_dict['input'])
-                    loss = criterion(pr_decs, data_dict)
-                    loss.backward()
-                    self.optimizer.step()
+                    autocast_ctx = (
+                        torch.autocast(**self.autocast_kwargs)
+                        if self.use_amp
+                        else nullcontext()
+                    )
+                    with autocast_ctx:
+                        pr_decs = self.model(data_dict['input'])
+                        loss = criterion(pr_decs, data_dict)
+                    if self.scaler is not None:
+                        self.scaler.scale(loss).backward()
+                        self.scaler.step(self.optimizer)
+                        self.scaler.update()
+                    else:
+                        loss.backward()
+                        self.optimizer.step()
             else:
                 with torch.no_grad():
-                    pr_decs = self.model(data_dict['input'])
-                    loss = criterion(pr_decs, data_dict)
+                    autocast_ctx = (
+                        torch.autocast(**self.autocast_kwargs)
+                        if self.use_amp
+                        else nullcontext()
+                    )
+                    with autocast_ctx:
+                        pr_decs = self.model(data_dict['input'])
+                        loss = criterion(pr_decs, data_dict)
 
             running_loss += loss.item()
         epoch_loss = running_loss / len(data_loader)
