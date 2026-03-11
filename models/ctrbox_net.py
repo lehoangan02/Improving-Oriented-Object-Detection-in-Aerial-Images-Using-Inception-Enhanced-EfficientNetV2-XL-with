@@ -325,14 +325,14 @@ class CTRBOX_EfficientNetV2(nn.Module):
                         in_channels=3,
                         n_classes=256,
                         pretrained=True)
-        self.adapter_layer = nn.Sequential(nn.Conv2d(32, 64, kernel_size=7, stride=2, padding=3, bias=False),
-                                        nn.BatchNorm2d(64),
-                                        nn.ReLU(inplace=True),
-                                        nn.Conv2d(64, 256, kernel_size=3, stride=1, padding=1, bias=False),
-                                        nn.BatchNorm2d(256),
-                                        nn.ReLU(inplace=True))
-        self.dec_c2 = CombinationModule(64, 32, batch_norm=True)
-        self.dec_c3 = CombinationModule(256, 64, batch_norm=True)
+        self.adapter_layer = nn.Sequential(nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1, bias=False),
+                        nn.BatchNorm2d(128),
+                        nn.ReLU(inplace=True),
+                        nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1, bias=False),
+                        nn.BatchNorm2d(256),
+                        nn.ReLU(inplace=True))
+        self.dec_c2 = CombinationModule(96, 64, batch_norm=True)
+        self.dec_c3 = CombinationModule(256, 96, batch_norm=True)
         self.dec_c4 = CombinationModule(640, 256, batch_norm=True)                                
         self.heads = heads
 
@@ -364,10 +364,15 @@ class CTRBOX_EfficientNetV2(nn.Module):
                 nn.init.constant_(m.bias, 0)
 
     def forward(self, x):
-        x = self.base_network(x)
-        c4_combine = self.dec_c4(x[-1], x[-2])
-        c3_combine = self.dec_c3(c4_combine, x[-3])
-        c2_combine = self.dec_c2(c3_combine, x[-4])
+        features = self.base_network.get_features(x)
+        if len(features) < 4:
+            raise RuntimeError(
+                'EfficientNetV2 backbone returned insufficient feature maps '
+                f'(got {len(features)}, expected at least 4).'
+            )
+        c4_combine = self.dec_c4(features[-1], features[-2])
+        c3_combine = self.dec_c3(c4_combine, features[-3])
+        c2_combine = self.dec_c2(c3_combine, features[-4])
         c2_combine = self.adapter_layer(c2_combine)
         dec_dict = {}
         for head in self.heads:
