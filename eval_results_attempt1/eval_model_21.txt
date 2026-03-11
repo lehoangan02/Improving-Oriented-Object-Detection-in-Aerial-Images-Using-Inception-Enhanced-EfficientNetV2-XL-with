@@ -1,0 +1,79 @@
+classname: plane
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3453
+ap:  0.8698553465287102
+classname: baseball-diamond
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 316
+ap:  0.45190703382321473
+classname: bridge
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 609
+ap:  0.2766530063175862
+classname: ground-track-field
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 146
+ap:  0.3463245663818118
+classname: small-vehicle
+check fp: [0. 1. 1. ... 1. 1. 1.]
+check tp [1. 0. 0. ... 0. 0. 0.]
+npos num: 8727
+ap:  0.16095573267393412
+classname: large-vehicle
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 8347
+ap:  0.29973064700570434
+classname: ship
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 15294
+ap:  0.802915894906007
+classname: tennis-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 1534
+ap:  0.6049119875142961
+classname: basketball-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 190
+ap:  0.28068870585953054
+classname: storage-tank
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 2730
+ap:  0.7526325413042689
+classname: soccer-ball-field
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 93
+ap:  0.2100192318411866
+classname: roundabout
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 235
+ap:  0.5162653151637017
+classname: harbor
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3095
+ap:  0.4050009455930824
+classname: swimming-pool
+check fp: [1. 0. 0. ... 1. 1. 1.]
+check tp [0. 1. 1. ... 0. 0. 0.]
+npos num: 567
+ap:  0.46230590959794254
+classname: helicopter
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 114
+ap:  0.0653414454593509
+map: 0.4337005539980219
+classaps:  [86.98553465 45.19070338 27.66530063 34.63245664 16.09557327 29.9730647
+ 80.29158949 60.49119875 28.06887059 75.26325413 21.00192318 51.62653152
+ 40.50009456 46.23059096  6.53414455]

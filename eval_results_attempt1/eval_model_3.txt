@@ -1,0 +1,79 @@
+classname: plane
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3453
+ap:  0.6343869785139243
+classname: baseball-diamond
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 316
+ap:  0.04109555173583496
+classname: bridge
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 609
+ap:  0.09201449958492211
+classname: ground-track-field
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 146
+ap:  0.0141220245206482
+classname: small-vehicle
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 8727
+ap:  0.07064377362174055
+classname: large-vehicle
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 8347
+ap:  0.22429635615899884
+classname: ship
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 15294
+ap:  0.6262709091714679
+classname: tennis-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 1534
+ap:  0.5270858767828005
+classname: basketball-court
+check fp: [0. 1. 1. ... 1. 1. 1.]
+check tp [1. 0. 0. ... 0. 0. 0.]
+npos num: 190
+ap:  0.14715927466892137
+classname: storage-tank
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 2730
+ap:  0.4487297249220114
+classname: soccer-ball-field
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 93
+ap:  0.04555897208330306
+classname: roundabout
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 235
+ap:  0.2840975887269424
+classname: harbor
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3095
+ap:  0.2001658087911918
+classname: swimming-pool
+check fp: [0. 1. 0. ... 1. 1. 1.]
+check tp [1. 0. 1. ... 0. 0. 0.]
+npos num: 567
+ap:  0.2666216181414099
+classname: helicopter
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 114
+ap:  0.0029806259314456036
+map: 0.2416819722237042
+classaps:  [63.43869785  4.10955517  9.20144996  1.41220245  7.06437736 22.42963562
+ 62.62709092 52.70858768 14.71592747 44.87297249  4.55589721 28.40975887
+ 20.01658088 26.66216181  0.29806259]

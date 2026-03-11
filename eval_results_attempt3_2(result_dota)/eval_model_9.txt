@@ -1,0 +1,79 @@
+classname: plane
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 6489
+ap:  0.7772552761868766
+classname: baseball-diamond
+check fp: [0. 1. 0. ... 1. 1. 1.]
+check tp [1. 0. 1. ... 0. 0. 0.]
+npos num: 565
+ap:  0.2564521291551803
+classname: bridge
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 1162
+ap:  0.11691486997110469
+classname: ground-track-field
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 0. 1. ... 0. 0. 0.]
+npos num: 286
+ap:  0.33045537571661365
+classname: small-vehicle
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 16538
+ap:  0.18473280126937408
+classname: large-vehicle
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 14574
+ap:  0.48006461278819335
+classname: ship
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 31788
+ap:  0.6437463710578303
+classname: tennis-court
+check fp: [0. 0. 0. ... 0. 1. 1.]
+check tp [1. 1. 1. ... 1. 0. 0.]
+npos num: 2383
+ap:  0.7552681466067998
+classname: basketball-court
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 333
+ap:  0.2945437540685648
+classname: storage-tank
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 5899
+ap:  0.6404427058999441
+classname: soccer-ball-field
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 164
+ap:  0.3214208173514789
+classname: roundabout
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 455
+ap:  0.38839447567524493
+classname: harbor
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 6032
+ap:  0.4282152233405366
+classname: swimming-pool
+check fp: [0. 1. 0. ... 1. 1. 1.]
+check tp [1. 0. 1. ... 0. 0. 0.]
+npos num: 1213
+ap:  0.3852892967561178
+classname: helicopter
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 227
+ap:  0.05831254301669367
+map: 0.40410055992403693
+classaps:  [77.72552762 25.64521292 11.691487   33.04553757 18.47328013 48.00646128
+ 64.37463711 75.52681466 29.45437541 64.04427059 32.14208174 38.83944757
+ 42.82152233 38.52892968  5.8312543 ]

@@ -1,0 +1,79 @@
+classname: plane
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3453
+ap:  0.8786829909041303
+classname: baseball-diamond
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 316
+ap:  0.491329447388421
+classname: bridge
+check fp: [0. 1. 0. ... 1. 1. 1.]
+check tp [1. 0. 1. ... 0. 0. 0.]
+npos num: 609
+ap:  0.3045250489025935
+classname: ground-track-field
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 146
+ap:  0.3879496501361879
+classname: small-vehicle
+check fp: [1. 1. 0. ... 1. 1. 1.]
+check tp [0. 0. 1. ... 0. 0. 0.]
+npos num: 8727
+ap:  0.12780077567179776
+classname: large-vehicle
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 8347
+ap:  0.3592531131918236
+classname: ship
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 15294
+ap:  0.8387685493426746
+classname: tennis-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 1534
+ap:  0.7716539433262138
+classname: basketball-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 190
+ap:  0.3447632880903557
+classname: storage-tank
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 2730
+ap:  0.7353029969648099
+classname: soccer-ball-field
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 93
+ap:  0.30773803099576436
+classname: roundabout
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 235
+ap:  0.47775270521865854
+classname: harbor
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3095
+ap:  0.5885488163049709
+classname: swimming-pool
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 567
+ap:  0.49237392498597343
+classname: helicopter
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 114
+ap:  0.130185894373162
+map: 0.48244194505316923
+classaps:  [87.86829909 49.13294474 30.45250489 38.79496501 12.78007757 35.92531132
+ 83.87685493 77.16539433 34.47632881 73.5302997  30.7738031  47.77527052
+ 58.85488163 49.2373925  13.01858944]

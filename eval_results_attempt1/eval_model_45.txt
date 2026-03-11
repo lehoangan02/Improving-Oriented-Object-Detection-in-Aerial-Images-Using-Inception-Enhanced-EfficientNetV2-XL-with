@@ -1,0 +1,79 @@
+classname: plane
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3453
+ap:  0.8771182241640131
+classname: baseball-diamond
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 316
+ap:  0.5528357076158446
+classname: bridge
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 609
+ap:  0.30764902861024834
+classname: ground-track-field
+check fp: [0. 1. 0. ... 1. 1. 1.]
+check tp [1. 0. 1. ... 0. 0. 0.]
+npos num: 146
+ap:  0.40295938507286605
+classname: small-vehicle
+check fp: [1. 1. 0. ... 1. 1. 1.]
+check tp [0. 0. 1. ... 0. 0. 0.]
+npos num: 8727
+ap:  0.13542584973017407
+classname: large-vehicle
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 8347
+ap:  0.3854002590404221
+classname: ship
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 15294
+ap:  0.8457236138038973
+classname: tennis-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 1534
+ap:  0.7739664593728729
+classname: basketball-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 190
+ap:  0.3363207923705065
+classname: storage-tank
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 2730
+ap:  0.7558846919527172
+classname: soccer-ball-field
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 93
+ap:  0.24168517564318323
+classname: roundabout
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 235
+ap:  0.5396525859048328
+classname: harbor
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3095
+ap:  0.588596288205206
+classname: swimming-pool
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 567
+ap:  0.5331016870829206
+classname: helicopter
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 114
+ap:  0.10707380861082452
+map: 0.4922262371453686
+classaps:  [87.71182242 55.28357076 30.76490286 40.29593851 13.54258497 38.5400259
+ 84.57236138 77.39664594 33.63207924 75.5884692  24.16851756 53.96525859
+ 58.85962882 53.31016871 10.70738086]

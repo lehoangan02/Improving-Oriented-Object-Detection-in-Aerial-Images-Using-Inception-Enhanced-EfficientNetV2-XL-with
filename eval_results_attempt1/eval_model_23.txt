@@ -1,0 +1,79 @@
+classname: plane
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3453
+ap:  0.8768435349063952
+classname: baseball-diamond
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 316
+ap:  0.2636095303983812
+classname: bridge
+check fp: [1. 0. 0. ... 1. 1. 1.]
+check tp [0. 1. 1. ... 0. 0. 0.]
+npos num: 609
+ap:  0.2028572901277549
+classname: ground-track-field
+check fp: [0. 1. 0. ... 1. 1. 1.]
+check tp [1. 0. 1. ... 0. 0. 0.]
+npos num: 146
+ap:  0.33293577707488886
+classname: small-vehicle
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 8727
+ap:  0.1172621393258095
+classname: large-vehicle
+check fp: [0. 0. 0. ... 0. 1. 1.]
+check tp [1. 1. 1. ... 1. 0. 0.]
+npos num: 8347
+ap:  0.3492855564532068
+classname: ship
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 15294
+ap:  0.8158669415020043
+classname: tennis-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 1534
+ap:  0.659012499456355
+classname: basketball-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 190
+ap:  0.3358222046481944
+classname: storage-tank
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 2730
+ap:  0.717864316246928
+classname: soccer-ball-field
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 93
+ap:  0.23670242349038012
+classname: roundabout
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 235
+ap:  0.48340656250418007
+classname: harbor
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3095
+ap:  0.5034621506279312
+classname: swimming-pool
+check fp: [1. 0. 0. ... 1. 1. 1.]
+check tp [0. 1. 1. ... 0. 0. 0.]
+npos num: 567
+ap:  0.46681031270914364
+classname: helicopter
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 114
+ap:  0.09229739600402145
+map: 0.43026924236503833
+classaps:  [87.68435349 26.36095304 20.28572901 33.29357771 11.72621393 34.92855565
+ 81.58669415 65.90124995 33.58222046 71.78643162 23.67024235 48.34065625
+ 50.34621506 46.68103127  9.2297396 ]

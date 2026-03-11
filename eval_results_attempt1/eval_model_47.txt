@@ -1,0 +1,79 @@
+classname: plane
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3453
+ap:  0.8835108787031376
+classname: baseball-diamond
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 316
+ap:  0.5580710411324208
+classname: bridge
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 609
+ap:  0.3033011147517789
+classname: ground-track-field
+check fp: [0. 0. 0. ... 0. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 146
+ap:  0.4207024724852969
+classname: small-vehicle
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 8727
+ap:  0.12079346336275684
+classname: large-vehicle
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 8347
+ap:  0.37144719866112574
+classname: ship
+check fp: [1. 0. 0. ... 1. 1. 1.]
+check tp [0. 1. 1. ... 0. 0. 0.]
+npos num: 15294
+ap:  0.8400089504862198
+classname: tennis-court
+check fp: [0. 0. 0. ... 1. 0. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 1534
+ap:  0.7849444186092056
+classname: basketball-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 190
+ap:  0.35468690418856536
+classname: storage-tank
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 2730
+ap:  0.7538063341876399
+classname: soccer-ball-field
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 93
+ap:  0.3365581666085331
+classname: roundabout
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 235
+ap:  0.509809025178345
+classname: harbor
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3095
+ap:  0.5768123187428326
+classname: swimming-pool
+check fp: [0. 1. 1. ... 1. 1. 1.]
+check tp [1. 0. 0. ... 0. 0. 0.]
+npos num: 567
+ap:  0.47853399501914956
+classname: helicopter
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 114
+ap:  0.2080798662884418
+map: 0.5000710765603633
+classaps:  [88.35108787 55.80710411 30.33011148 42.07024725 12.07934634 37.14471987
+ 84.00089505 78.49444186 35.46869042 75.38063342 33.65581666 50.98090252
+ 57.68123187 47.8533995  20.80798663]

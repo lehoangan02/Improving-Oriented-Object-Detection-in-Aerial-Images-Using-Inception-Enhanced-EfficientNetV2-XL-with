@@ -1,0 +1,79 @@
+classname: plane
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3453
+ap:  0.8243283529278995
+classname: baseball-diamond
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 316
+ap:  0.16044585419739674
+classname: bridge
+check fp: [1. 0. 1. ... 1. 1. 1.]
+check tp [0. 1. 0. ... 0. 0. 0.]
+npos num: 609
+ap:  0.181307918792964
+classname: ground-track-field
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 146
+ap:  0.24405535486794402
+classname: small-vehicle
+check fp: [0. 1. 1. ... 1. 1. 1.]
+check tp [1. 0. 0. ... 0. 0. 0.]
+npos num: 8727
+ap:  0.15772364148827692
+classname: large-vehicle
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 8347
+ap:  0.3122154247355446
+classname: ship
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 15294
+ap:  0.7571021951751206
+classname: tennis-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 1534
+ap:  0.4741252630404002
+classname: basketball-court
+check fp: [1. 0. 0. ... 1. 1. 1.]
+check tp [0. 1. 1. ... 0. 0. 0.]
+npos num: 190
+ap:  0.2096374803199471
+classname: storage-tank
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 2730
+ap:  0.6754928457764543
+classname: soccer-ball-field
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 0. 0. ... 0. 0. 0.]
+npos num: 93
+ap:  0.14032971012667622
+classname: roundabout
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 235
+ap:  0.4242553236986579
+classname: harbor
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3095
+ap:  0.2783056705862433
+classname: swimming-pool
+check fp: [1. 0. 0. ... 1. 1. 1.]
+check tp [0. 1. 1. ... 0. 0. 0.]
+npos num: 567
+ap:  0.36770323900989516
+classname: helicopter
+check fp: [1. 0. 1. ... 1. 1. 1.]
+check tp [0. 1. 0. ... 0. 0. 0.]
+npos num: 114
+ap:  0.07777607785366318
+map: 0.3523202901731389
+classaps:  [82.43283529 16.04458542 18.13079188 24.40553549 15.77236415 31.22154247
+ 75.71021952 47.4125263  20.96374803 67.54928458 14.03297101 42.42553237
+ 27.83056706 36.7703239   7.77760779]

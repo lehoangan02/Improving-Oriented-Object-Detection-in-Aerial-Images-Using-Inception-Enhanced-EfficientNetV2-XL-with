@@ -1,0 +1,79 @@
+classname: plane
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3453
+ap:  0.8669430915654761
+classname: baseball-diamond
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 316
+ap:  0.3829495904601569
+classname: bridge
+check fp: [1. 1. 0. ... 1. 1. 1.]
+check tp [0. 0. 1. ... 0. 0. 0.]
+npos num: 609
+ap:  0.23422836636912348
+classname: ground-track-field
+check fp: [0. 1. 0. ... 1. 1. 1.]
+check tp [1. 0. 1. ... 0. 0. 0.]
+npos num: 146
+ap:  0.32557740167373395
+classname: small-vehicle
+check fp: [0. 1. 1. ... 1. 1. 1.]
+check tp [1. 0. 0. ... 0. 0. 0.]
+npos num: 8727
+ap:  0.1805576995445532
+classname: large-vehicle
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 8347
+ap:  0.38068748130123065
+classname: ship
+check fp: [0. 1. 0. ... 1. 1. 1.]
+check tp [1. 0. 1. ... 0. 0. 0.]
+npos num: 15294
+ap:  0.7851017752574254
+classname: tennis-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 1534
+ap:  0.6380702834190615
+classname: basketball-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 190
+ap:  0.2687784885708449
+classname: storage-tank
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 2730
+ap:  0.7421788361247068
+classname: soccer-ball-field
+check fp: [1. 0. 0. ... 1. 1. 1.]
+check tp [0. 0. 1. ... 0. 0. 0.]
+npos num: 93
+ap:  0.17023352811295567
+classname: roundabout
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 235
+ap:  0.4482066511518388
+classname: harbor
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3095
+ap:  0.40860828088199097
+classname: swimming-pool
+check fp: [1. 0. 0. ... 1. 1. 1.]
+check tp [0. 1. 1. ... 0. 0. 0.]
+npos num: 567
+ap:  0.4522405439178503
+classname: helicopter
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 114
+ap:  0.22114399505455773
+map: 0.4337004008937004
+classaps:  [86.69430916 38.29495905 23.42283664 32.55774017 18.05576995 38.06874813
+ 78.51017753 63.80702834 26.87784886 74.21788361 17.02335281 44.82066512
+ 40.86082809 45.22405439 22.11439951]

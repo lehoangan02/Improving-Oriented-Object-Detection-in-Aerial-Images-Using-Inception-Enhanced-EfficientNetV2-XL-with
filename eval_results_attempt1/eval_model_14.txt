@@ -1,0 +1,79 @@
+classname: plane
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3453
+ap:  0.8568434719678816
+classname: baseball-diamond
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 316
+ap:  0.30988287257760083
+classname: bridge
+check fp: [1. 0. 0. ... 1. 1. 1.]
+check tp [0. 1. 1. ... 0. 0. 0.]
+npos num: 609
+ap:  0.22948713343894506
+classname: ground-track-field
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 146
+ap:  0.3225020310761373
+classname: small-vehicle
+check fp: [1. 0. 1. ... 1. 1. 1.]
+check tp [0. 1. 0. ... 0. 0. 0.]
+npos num: 8727
+ap:  0.11634982544190128
+classname: large-vehicle
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 8347
+ap:  0.32152106620988
+classname: ship
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 15294
+ap:  0.7626057750801087
+classname: tennis-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 1534
+ap:  0.5839773020357965
+classname: basketball-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 190
+ap:  0.3248994141071061
+classname: storage-tank
+check fp: [0. 0. 0. ... 0. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 2730
+ap:  0.741796520291073
+classname: soccer-ball-field
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [0. 0. 1. ... 0. 0. 0.]
+npos num: 93
+ap:  0.20708688222590296
+classname: roundabout
+check fp: [0. 0. 0. ... 1. 0. 1.]
+check tp [1. 1. 1. ... 0. 1. 0.]
+npos num: 235
+ap:  0.45194270839337697
+classname: harbor
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 3095
+ap:  0.367308118629197
+classname: swimming-pool
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 567
+ap:  0.4176330776972567
+classname: helicopter
+check fp: [1. 1. 1. ... 1. 1. 1.]
+check tp [0. 0. 0. ... 0. 0. 0.]
+npos num: 114
+ap:  0.0957565789906525
+map: 0.4073061852108545
+classaps:  [85.6843472  30.98828726 22.94871334 32.25020311 11.63498254 32.15210662
+ 76.26057751 58.3977302  32.48994141 74.17965203 20.70868822 45.19427084
+ 36.73081186 41.76330777  9.5756579 ]

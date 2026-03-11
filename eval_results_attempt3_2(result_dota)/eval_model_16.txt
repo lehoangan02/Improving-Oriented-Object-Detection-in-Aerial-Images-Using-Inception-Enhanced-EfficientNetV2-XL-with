@@ -1,0 +1,79 @@
+classname: plane
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 6489
+ap:  0.80187303844352
+classname: baseball-diamond
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 565
+ap:  0.4914426858429119
+classname: bridge
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 1162
+ap:  0.2567493546176017
+classname: ground-track-field
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 286
+ap:  0.47272365525571625
+classname: small-vehicle
+check fp: [0. 1. 1. ... 1. 1. 1.]
+check tp [1. 0. 0. ... 0. 0. 0.]
+npos num: 16538
+ap:  0.2162270657207382
+classname: large-vehicle
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 14574
+ap:  0.5508331357046141
+classname: ship
+check fp: [1. 0. 0. ... 1. 1. 1.]
+check tp [0. 1. 1. ... 0. 0. 0.]
+npos num: 31788
+ap:  0.7398009815628648
+classname: tennis-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 0. 1. ... 0. 0. 0.]
+npos num: 2383
+ap:  0.7529344247769174
+classname: basketball-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 333
+ap:  0.430067178087558
+classname: storage-tank
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 5899
+ap:  0.6680303181284264
+classname: soccer-ball-field
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 164
+ap:  0.4411032998190635
+classname: roundabout
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 455
+ap:  0.36324740829978647
+classname: harbor
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 6032
+ap:  0.4754810088944122
+classname: swimming-pool
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 1213
+ap:  0.3934968162995841
+classname: helicopter
+check fp: [1. 0. 1. ... 1. 1. 1.]
+check tp [0. 1. 0. ... 0. 0. 0.]
+npos num: 227
+ap:  0.17182149333083557
+map: 0.48172212431897005
+classaps:  [80.18730384 49.14426858 25.67493546 47.27236553 21.62270657 55.08331357
+ 73.98009816 75.29344248 43.00671781 66.80303181 44.11032998 36.32474083
+ 47.54810089 39.34968163 17.18214933]
