@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --job-name=download_dota_train
-#SBATCH --output=download_dota_train.log
+#SBATCH --job-name=download_dota_val
+#SBATCH --output=download_dota_val.log
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=8G
 #SBATCH --time=12:00:00
@@ -17,15 +17,13 @@ cd /media02/hvtham/DATA
 
 echo "Downloading DOTA_TRAIN_608.zip..."
 
-wget "https://huggingface.co/datasets/lehoangan02/BridgeTrain/resolve/main/DOTA_All_Classes/1/DOTA_V1.0_Split_1_608_100.zip?download=true" -O DOTA_V1.0_Split_1_608_100.zip
-wget "https://huggingface.co/datasets/lehoangan02/BridgeTrain/resolve/main/DOTA_All_Classes/0.5/DOTA_V1.0_Split_0.5_608_100.zip?download=true" -O DOTA_V1.0_Split_0.5_608_100.zip
+wget "https://huggingface.co/datasets/lehoangan02/BridgeTrain/resolve/main/Cross%20Validation/Validate_1_0.5_600_100.zip?download=true" -O Validate_1_0.5_600_100.zip
 
 echo "Download finished"
 
 echo "Unzipping..."
 
-unzip DOTA_V1.0_Split_1_608_100.zip
-unzip DOTA_V1.0_Split_0.5_608_100.zip
+unzip Validate_1_0.5_600_100.zip
 
 echo "Unzip finished"
 
