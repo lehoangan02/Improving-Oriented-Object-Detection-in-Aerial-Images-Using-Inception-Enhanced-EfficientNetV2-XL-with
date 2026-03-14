@@ -1,0 +1,79 @@
+classname: plane
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 2450
+ap:  0.8951463615643724
+classname: baseball-diamond
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 209
+ap:  0.7324801608924852
+classname: bridge
+check fp: [0. 1. 1. ... 1. 1. 1.]
+check tp [1. 0. 0. ... 0. 0. 0.]
+npos num: 424
+ap:  0.38670781375697794
+classname: ground-track-field
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 131
+ap:  0.596253790320907
+classname: small-vehicle
+check fp: [0. 0. 1. ... 1. 1. 1.]
+check tp [1. 1. 0. ... 0. 0. 0.]
+npos num: 5090
+ap:  0.3228796305097683
+classname: large-vehicle
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 4293
+ap:  0.7238314954730212
+classname: ship
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 8861
+ap:  0.8536697690912727
+classname: tennis-court
+check fp: [0. 0. 0. ... 0. 1. 1.]
+check tp [1. 1. 1. ... 1. 0. 0.]
+npos num: 739
+ap:  0.908548168249661
+classname: basketball-court
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 124
+ap:  0.6749748703309075
+classname: storage-tank
+check fp: [0. 0. 0. ... 1. 1. 0.]
+check tp [1. 1. 1. ... 0. 0. 1.]
+npos num: 1869
+ap:  0.7755474701444065
+classname: soccer-ball-field
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 87
+ap:  0.6340400959045027
+classname: roundabout
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 164
+ap:  0.5789099730217123
+classname: harbor
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 2065
+ap:  0.6373187951205128
+classname: swimming-pool
+check fp: [0. 0. 0. ... 1. 1. 1.]
+check tp [1. 1. 1. ... 0. 0. 0.]
+npos num: 366
+ap:  0.5510115515276508
+classname: helicopter
+check fp: [1. 0. 1. ... 1. 1. 1.]
+check tp [0. 1. 0. ... 0. 0. 0.]
+npos num: 72
+ap:  0.403809908599492
+map: 0.6450086569671766
+classaps:  [89.51463616 73.24801609 38.67078138 59.62537903 32.28796305 72.38314955
+ 85.36697691 90.85481682 67.49748703 77.55474701 63.40400959 57.8909973
+ 63.73187951 55.10115515 40.38099086]

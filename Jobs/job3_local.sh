@@ -10,7 +10,7 @@ echo "========================================"
 
 PROJECT_DIR=/home/lhan/Documents/paper/Improving-Oriented-Object-Detection-in-Aerial-Images-Using-Inception-Enhanced-EfficientNetV2-XL-with
 DEVKIT_DIR=$PROJECT_DIR/datasets/DOTA_devkit
-WEIGHTS_DIR=$PROJECT_DIR/weights_dota/attempt3
+WEIGHTS_DIR=$PROJECT_DIR/weights_dota/attempt2
 OUTPUT_DIR=$PROJECT_DIR/eval_results
 
 mkdir -p $OUTPUT_DIR
@@ -21,7 +21,7 @@ export PYTHONPATH=$PROJECT_DIR:$DEVKIT_DIR:${PYTHONPATH:-}
 
 python -c "import torch; print('CUDA:', torch.cuda.is_available())"
 
-for i in $(seq 1   50)
+for i in $(seq 50 -1 1)
 do
 echo "========================================"
 echo "Evaluating model_$i.pth"
